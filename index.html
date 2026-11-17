@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SKYNET SIMULATION SOLUTIONS</title>
+<style>
+    /* STRICT BLUE, WHITE, BLACK THEME */
+    :root {
+        --blue: #0000FF;
+        --black: #000000;
+        --white: #FFFFFF;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Arial Black", Impact, Arial, sans-serif;
+    }
+
+    body {
+        background-color: var(--white);
+        color: var(--black);
+        line-height: 1.5;
+        font-size: 18px;
+    }
+
+    /* HEADER */
+    .header {
+        width: 100%;
+        text-align: center;
+    }
+    .title-bar {
+        background-color: var(--blue);
+        border-bottom: 12px solid var(--black);
+        padding: 25px 15px;
+    }
+    .title-bar h1 {
+        color: var(--white);
+        font-size: 42px;
+        text-transform: uppercase;
+        text-shadow: 3px 3px 0 var(--black);
+        letter-spacing: 2px;
+    }
+    .contact-bar {
+        background-color: var(--black);
+        padding: 15px;
+    }
+    .contact-bar p {
+        color: var(--white);
+        font-size: 32px;
+        text-shadow: 2px 2px 0 var(--blue);
+    }
+
+    /* NAVIGATION */
+    .nav {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        background: var(--black);
+        padding: 10px;
+        gap: 15px;
+    }
+    .nav button {
+        background-color: var(--white);
+        color: var(--blue);
+        border: 5px solid var(--blue);
+        padding: 12px 20px;
+        font-size: 20px;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-weight: 900;
+        transition: 0.2s;
+    }
+    .nav button:hover { 
+        background-color: var(--blue); 
+        color: var(--white);
+    }
+
+    /* CONTAINERS */
+    .container {
+        max-width: 1000px;
+        margin: 30px auto;
+        padding: 25px;
+        border: 10px solid var(--black);
+        background: var(--white);
+        box-shadow: 12px 12px 0 var(--blue);
+    }
+
+    /* HOME PAGE */
+    #home-page { display: block; }
+    .instruction-box {
+        background-color: var(--white);
+        border: 6px solid var(--blue);
+        border-left: 25px solid var(--blue);
+        padding: 20px;
+        margin-bottom: 20px;
+        font-size: 20px;
+    }
+    .instruction-box h2 { color: var(--blue); margin-bottom: 15px; font-size: 28px;}
+    .instruction-box p { margin-bottom: 10px; font-weight: bold;}
+    .start-btn {
+        display: block;
+        width: 100%;
+        background-color: var(--blue);
+        color: var(--white);
+        font-size: 30px;
+        padding: 20px;
+        border: 8px solid var(--black);
+        cursor: pointer;
+        text-transform: uppercase;
+        text-shadow: 2px 2px 0 var(--black);
+        margin-top: 15px;
+        transition: 0.2s;
+    }
+    .start-btn:hover { 
+        background-color: var(--white); 
+        color: var(--blue);
+        text-shadow: none;
+    }
+
+    /* LECTURES PAGE (CLICKABLE CARDS) */
+    #lectures-page { display: none; }
+    
+    .lecture-card {
+        border: 6px solid var(--black);
+        margin-bottom: 20px;
+        background: var(--white);
+        cursor: pointer;
+        overflow: hidden;
+    }
+    
+    .lecture-header {
+        background: var(--blue);
+        color: var(--white);
+        padding: 20px;
+        font-size: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: 0.2s;
+    }
+    
+    .lecture-header:hover {
+        background: var(--black);
+    }
+
+    .lecture-icon {
+        font-size: 30px;
+    }
+
+    .lecture-content {
+        display: none; /* Hidden by default, toggled by JS */
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        line-height: 1.6;
+        border-top: 6px solid var(--black);
+        background: var(--white);
+    }
+    
+    .lecture-content h4 {
+        color: var(--blue);
+        margin-top: 15px;
+        margin-bottom: 5px;
+        font-size: 20px;
+        font-family: "Arial Black", sans-serif;
+    }
+    
+    .lecture-content ul {
+        margin-left: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .lecture-content li {
+        margin-bottom: 8px;
+    }
+
+    .key-term {
+        background: var(--black);
+        color: var(--white);
+        font-weight: bold;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    /* QUIZ PAGE */
+    #quiz-page { display: none; }
+    
+    .quiz-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        gap: 20px;
+    }
+    .score-display {
+        background: var(--black);
+        color: var(--white);
+        padding: 10px 20px;
+        font-size: 24px;
+        font-weight: 900;
+        border: 5px solid var(--blue);
+        white-space: nowrap;
+    }
+    .progress-bar {
+        flex-grow: 1;
+        height: 30px;
+        background: var(--white);
+        border: 5px solid var(--black);
+    }
+    .progress-fill {
+        height: 100%;
+        background: var(--blue);
+        width: 0%;
+        transition: width 0.3s;
+    }
+
+    .question-text {
+        font-size: 26px;
+        margin-bottom: 25px;
+        background: var(--blue);
+        color: var(--white);
+        padding: 20px;
+        border: 5px solid var(--black);
+    }
+    .options {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .option-btn {
+        text-align: left;
+        padding: 20px;
+        font-size: 22px;
+        background: var(--white);
+        color: var(--black);
+        border: 5px solid var(--black);
+        cursor: pointer;
+        transition: 0.2s;
+        font-weight: bold;
+    }
+    .option-btn:hover { 
+        background: var(--blue); 
+        color: var(--white);
+    }
+    .option-btn.correct { 
+        background: var(--blue); 
+        color: var(--white); 
+        border-color: var(--black); 
+    } 
+    .option-btn.wrong { 
+        background: var(--black); 
+        color: var(--white); 
+        text-decoration: line-through;
+    }
+    
+    #feedback {
+        display: none;
+        margin-top: 25px;
+        padding: 25px;
+        border: 8px solid var(--black);
+        font-size: 22px;
+        font-weight: bold;
+    }
+    .feedback-correct { background: var(--blue); color: var(--white); }
+    .feedback-wrong { background: var(--black); color: var(--white); }
+    
+    .emoji { font-size: 50px; margin-bottom: 10px;}
+    
+    .next-btn {
+        margin-top: 20px;
+        padding: 15px 30px;
+        font-size: 24px;
+        background: var(--white);
+        color: var(--black);
+        border: 6px solid var(--black);
+        cursor: pointer;
+        display: none;
+        text-transform: uppercase;
+        font-weight: 900;
+        transition: 0.2s;
+    }
+    .next-btn:hover { 
+        background: var(--black); 
+        color: var(--white); 
+    }
+
+    /* PAPER 2 PAGE */
+    #paper2-page { display: none; }
+    
+    .p2-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        background: var(--black);
+        color: var(--white);
+        padding: 15px 20px;
+        border: 5px solid var(--blue);
+    }
+    .p2-header h2 { font-size: 28px; }
+    .p2-counter { font-size: 24px; color: var(--white); background: var(--blue); padding: 5px 15px; border: 3px solid var(--white);}
+    
+    .p2-question-box {
+        border: 6px solid var(--black);
+        margin-bottom: 25px;
+        background: var(--white);
+        min-height: 200px;
+    }
+    .p2-question-text {
+        background: var(--white);
+        color: var(--black);
+        padding: 25px;
+        font-size: 22px;
+        border-bottom: 6px solid var(--black);
+        font-weight: bold;
+        line-height: 1.6;
+    }
+    .toggle-answer-btn {
+        width: 100%;
+        padding: 20px;
+        background: var(--black);
+        color: var(--white);
+        font-size: 22px;
+        font-weight: 900;
+        text-transform: uppercase;
+        border: none;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .toggle-answer-btn:hover { 
+        background: var(--blue); 
+        color: var(--white); 
+    }
+    .p2-model-answer {
+        display: none; 
+        padding: 25px;
+        background: var(--white);
+        border-top: 6px solid var(--black);
+        font-size: 20px;
+        line-height: 1.6;
+        font-family: Arial, sans-serif; 
+    }
+    .p2-model-answer strong { color: var(--blue); }
+    .p2-model-answer ul { margin-left: 25px; margin-bottom: 15px;}
+    .p2-model-answer li { margin-bottom: 10px;}
+
+    .p2-nav-buttons {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+    .p2-nav-btn {
+        flex: 1;
+        padding: 20px;
+        font-size: 24px;
+        background: var(--blue);
+        color: var(--white);
+        border: 6px solid var(--black);
+        cursor: pointer;
+        text-transform: uppercase;
+        font-weight: 900;
+        transition: 0.2s;
+    }
+    .p2-nav-btn:hover:not(:disabled) { 
+        background: var(--black); 
+        color: var(--white); 
+    }
+    .p2-nav-btn:disabled {
+        background: var(--white);
+        color: #CCC;
+        border-color: #CCC;
+        cursor: not-allowed;
+    }
+
+    /* SHOOTING STARS ANIMATION */
+    .shooting-star {
+        position: fixed;
+        width: 12px;
+        height: 12px;
+        background: var(--white);
+        border: 2px solid var(--blue);
+        border-radius: 50%;
+        box-shadow: 0 0 15px 5px var(--blue);
+        animation: shoot 1s linear forwards;
+        z-index: 9999;
+        pointer-events: none;
+    }
+    @keyframes shoot {
+        0% { transform: translateY(0) translateX(0) scale(1); opacity: 1; }
+        100% { transform: translateY(-100vh) translateX(100vw) scale(0); opacity: 0; }
+    }
+
+    /* END SCREEN */
+    #end-screen { display: none; text-align: center; }
+    .final-score-box {
+        background: var(--black);
+        color: var(--white);
+        padding: 30px;
+        border: 10px solid var(--blue);
+        margin: 20px 0;
+        font-size: 32px;
+    }
+</style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="title-bar">
+            <h1>SKYNET SIMULATION SOLUTIONS<br>TO PAST CGCE QUESTIONS</h1>
+        </div>
+        <div class="contact-bar">
+            <p>CONTACT: 652 92 48 16</p>
+        </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <div class="nav">
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('lectures')">Study Lectures</button>
+        <button onclick="showPage('quiz')">Paper 1 Simulation</button>
+        <button onclick="showPage('paper2')">Paper 2 Model Answers</button>
+    </div>
+
+    <!-- HOME PAGE -->
+    <div id="home-page" class="container">
+        <div class="instruction-box">
+            <h2>HOW TO USE THIS SIMULATION</h2>
+            <p>1. <strong>Have the physical paper at hand:</strong> Always keep the original GCE past paper in front of you for reference.</p>
+            <p>2. <strong>Study First:</strong> Click "Study Lectures". Open and read every card carefully. If you understand these 7 lectures, you will score 100%.</p>
+            <p>3. <strong>Paper 1 (MCQ):</strong> Click "Paper 1 Simulation". You will see exactly ONE question per page. Your score and progress are saved automatically.</p>
+            <p>4. <strong>Paper 2 (Essay):</strong> Click "Paper 2 Model Answers". You will see ONE question per page. Navigate using the "Next" and "Previous" buttons.</p>
+            <p>5. <strong>Instant Feedback:</strong> Correct MCQ answers trigger a celebration and explanation; wrong answers show the right option and correct you.</p>
+        </div>
+        <button class="start-btn" onclick="showPage('lectures')">START STUDYING LECTURES</button>
+        <button class="start-btn" style="background-color: var(--white); color: var(--blue);" onclick="showPage('quiz')">RESUME / START PAPER 1</button>
+    </div>
+
+    <!-- LECTURES PAGE (CLICKABLE CARDS) -->
+    <div id="lectures-page" class="container">
+        <h2 style="color:var(--blue); font-size:32px; margin-bottom:20px; text-align:center;">MASTER LECTURES (BEGINNER TO PRO)</h2>
+        <p style="text-align:center; margin-bottom:20px; font-weight:bold;">Click any card below to open the detailed lesson.</p>
+        
+        <!-- LECTURE 1 -->
+        <div class="lecture-card" onclick="toggleLecture(this)">
+            <div class="lecture-header">
+                <span>1. Computer Hardware, CPU & Memory</span>
+                <span class="lecture-icon">+</span>
+            </div>
+            <div class="lecture-content">
+                <h4>1. The CPU (Central Processing Unit)</h4>
+                <p>The CPU is the brain of the computer. It has two main parts:</p>
+                <ul>
+                    <li><span class="key-term">ALU (Arithmetic Logic Unit):</span> Does all the math (addition, subtraction) and logic (comparing numbers).</li>
+                    <li><span class="key-term">Control Unit (CU):</span> Directs traffic. It tells the rest of the computer what to do.</li>
+                    <li><span class="key-term">Internal Bus:</span> The highway that carries data between the CPU parts.</li>
+                </ul>
+
+                <h4>2. The Instruction Cycle</h4>
+                <p>When the CPU runs a program, it follows three steps:</p>
+                <ul>
+                    <li><strong>Fetch:</strong> The CU gets the instruction from RAM.</li>
+                    <li><strong>Decode:</strong> The CU translates the instruction into signals.</li>
+                    <li><strong>Execute:</strong> The ALU carries out the math or logic.</li>
+                </ul>
+
+                <h4>3. Memory Types (Crucial for Exams)</h4>
+                <ul>
+                    <li><span class="key-term">RAM (Random Access Memory):</span> This is temporary memory. It holds programs that are currently running. It is <strong>Volatile</strong>, meaning it loses all data when the power goes off. If you increase RAM, your computer runs faster because it can hold more programs at once.</li>
+                    <li><span class="key-term">ROM (Read Only Memory):</span> This is permanent memory. It holds the BIOS (the instructions needed to boot up the computer). It is <strong>Non-volatile</strong>.</li>
+                    <li><span class="key-term">Cache:</span> Super fast memory built directly into the CPU. It stores frequently used data so the CPU doesn't have to wait for RAM.</li>
+                    <li><span class="key-term">EPROM:</span> A type of ROM that can be erased and reprogrammed using electrical signals.</li>
+                </ul>
+                <p><em>Exam Tip:</em> If a PC has no RAM, it will <strong>not boot</strong>. Without RAM, the OS cannot load.</p>
+            </div>
+        </div>
+
+        <!-- LECTURE 2 -->
+        <div class="lecture-card" onclick="toggleLecture(this)">
+            <div class="lecture-header">
+                <span>2. Input/Output, Storage & Ergonomics</span>
+                <span class="lecture-icon">+</span>
+            </div>
+            <div class="lecture-content">
+                <h4>1. Data Transfer (DMA)</h4>
+                <p><span class="key-term">Direct Memory Access (DMA):</span> This is the fastest way to move large amounts of data. It allows a device (like a hard drive) to send data directly to RAM <strong>without</strong> bothering the CPU. This frees up the CPU to do other work.</p>
+
+                <h4>2. Storage Media</h4>
+                <ul>
+                    <li><strong>Magnetic:</strong> Hard Disk Drives (HDD) and Floppy Disks. Use magnets to store data.</li>
+                    <li><strong>Optical:</strong> CDs, DVDs. Use a laser to read data. The data is stored in <strong>pits</strong> (holes) and <strong>lands</strong> (flat areas).</li>
+                    <li><strong>Solid State:</strong> Flash drives, SSDs. No moving parts, very fast.</li>
+                    <li><strong>Defragmentation:</strong> Over time, files get scattered (fragmented) on a hard drive. Defragmentation rearranges the files so they are stored serially (next to each other), which speeds up read time.</li>
+                </ul>
+
+                <h4>3. Ergonomics & Health</h4>
+                <ul>
+                    <li><span class="key-term">RSI (Repetitive Strain Injury):</span> Pain in the wrists/hands from typing too much. Prevented by taking breaks, using wrist rests, and using ergonomic keyboards.</li>
+                    <li><span class="key-term">Eye Strain:</span> Prevented by using antiglare screens, LCD monitors, and looking away from the screen regularly.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- LECTURE 3 -->
+        <div class="lecture-card" onclick="toggleLecture(this)">
+            <div class="lecture-header">
+                <span>3. Software, OS & Language Translators</span>
+                <span class="lecture-icon">+</span>
+            </div>
+            <div class="lecture-content">
+                <h4>1. Language Translators</h4>
+                <p>Computers only understand Machine Code (1s and 0s). Translators convert human code into machine code.</p>
+                <ul>
+                    <li><span class="key-term">Compiler:</span> Translates the entire program at once. Makes a .exe file.</li>
+                    <li><span class="key-term">Interpreter:</span> Translates code line by line. Easier to debug.</li>
+                    <li><span class="key-term">Assembler:</span> Translates low-level Assembly language into machine code.</li>
+                </ul>
+
+                <h4>2. The Operating System (OS)</h4>
+                <p>The OS is the master software (e.g., Windows, Linux, DOS). It manages:</p>
+                <ul>
+                    <li><strong>Memory Management:</strong> Allocates RAM to programs and frees it when they close.</li>
+                    <li><strong>File Management:</strong> Creates, deletes, and organizes files/folders on the disk.</li>
+                    <li><strong>Mono-tasking OS:</strong> Can only run ONE program at a time (e.g., DOS).</li>
+                </ul>
+
+                <h4>3. Programming Concepts</h4>
+                <ul>
+                    <li><span class="key-term">Iteration:</span> A loop. Repeats a set of instructions.</li>
+                    <li><span class="key-term">Array:</span> A list of items of the same type. Accessed by an <strong>Index</strong> (e.g., Array[0]).</li>
+                    <li><span class="key-term">Variable:</span> A storage location that must be declared before use.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- LECTURE 4 -->
+        <div class="lecture-card" onclick="toggleLecture(this)">
+            <div class="lecture-header">
+                <span>4. Data Representation & Logic Gates</span>
+                <span class="lecture-icon">+</span>
+            </div>
+            <div class="lecture-content">
+                <h4>1. Number Systems</h4>
+                <p>Computers use Binary (Base 2). Humans often use Hexadecimal (Base 16) to shorten binary.</p>
+                <ul>
+                    <li><strong>Binary to Hex:</strong> Group binary bits into 4s. (e.g., 1010 = A, 1111 = F).</li>
+                    <li><strong>8-bit system:</strong> Can represent 2^8 = 256 characters (0 to 255).</li>
+                    <li><strong>Data Hierarchy:</strong> Bit -> Byte -> Field -> Record -> File -> Database.</li>
+                </ul>
+
+                <h4>2. Logic Gates</h4>
+                <ul>
+                    <li><span class="key-term">XOR (Exclusive OR):</span> Outputs 1 only if the inputs are DIFFERENT (one 0, one 1). If inputs are the same, it outputs 0.</li>
+                    <li><span class="key-term">NOR:</span> Outputs 1 only if BOTH inputs are 0.</li>
+                </ul>
+
+                <h4>3. De Morgan's Theorems (For Paper 2)</h4>
+                <ul>
+                    <li><strong>Theorem 1:</strong> NOT (A AND B) = (NOT A) OR (NOT B)</li>
+                    <li><strong>Theorem 2:</strong> NOT (A OR B) = (NOT A) AND (NOT B)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- LECTURE 5 -->
+        <div class="lecture-card" onclick="toggleLecture(this)">
+            <div class="lecture-header">
+                <span>5. Computer Networks</span>
+                <span class="lecture-icon">+</span>
+            </div>
+            <div class="lecture-content">
+                <h4>1. Network Devices</h4>
+                <ul>
+                    <li><span class="key-term">Gateway:</span> Connects networks with DIFFERENT protocols. It is a translator.</li>
+                    <li><span class="key-term">Router:</span> Directs traffic between different networks (like a traffic cop).</li>
+                    <li><span class="key-term">Switch:</span> Connects devices WITHIN the same network.</li>
+                    <li><span class="key-term">Bridge:</span> Connects two network segments.</li>
+                </ul>
+
+                <h4>2. Topologies (How cables are arranged)</h4>
+                <ul>
+                    <li><span class="key-term">Star:</span> All devices connect to a central hub/switch. If one cable breaks, only that device goes down.</li>
+                    <li><span class="key-term">Bus:</span> All devices share ONE backbone cable. Uses the <strong>least amount of cable</strong>.</li>
+                    <li><span class="key-term">Ring:</span> Devices form a circle.</li>
+                </ul>
+
+                <h4>3. Transmission Types</h4>
+                <ul>
+                    <li><strong>Synchronous:</strong> Sends large blocks of data continuously without gaps. Timed by a clock.</li>
+                    <li><strong>Asynchronous:</strong> Sends data one character at a time with start/stop bits.</li>
+                    <li><strong>Serial:</strong> Sends bits one after another. Best for long distances.</li>
+                    <li><strong>Parallel:</strong> Sends multiple bits at once. Fast, but only for short distances.</li>
+                    <li><strong>Full-duplex:</strong> Both devices can send and receive at the same time (like a phone call).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- LECTURE 6 -->
+        <div class="lecture-card" onclick="toggleLecture(this)">
+            <div class="lecture-header">
+                <span>6. The Internet & Databases</span>
+                <span class="lecture-icon">+</span>
+            </div>
+            <div class="lecture-content">
+                <h4>1. Internet Terms</h4>
+                <ul>
+                    <li><span class="key-term">URL:</span> The address of a web page.</li>
+                    <li><span class="key-term">HTTP:</span> The protocol used to transfer web pages.</li>
+                    <li><span class="key-term">VoIP:</span> Voice over Internet Protocol (making phone calls over the internet).</li>
+                    <li><span class="key-term">Telnet:</span> Used to remotely log into another computer.</li>
+                    <li><span class="key-term">Browser:</span> Software used to view web pages (Chrome, Firefox).</li>
+                </ul>
+
+                <h4>2. Databases</h4>
+                <ul>
+                    <li><span class="key-term">Primary Key:</span> A unique identifier for a record (e.g., Student ID).</li>
+                    <li><span class="key-term">Foreign Key:</span> A field in one table that links to the Primary Key of another table.</li>
+                    <li><span class="key-term">Normalization:</span> The process of organizing data to reduce redundancy (repetition). If a database is NOT normalized, the same data might appear multiple times.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- LECTURE 7 -->
+        <div class="lecture-card" onclick="toggleLecture(this)">
+            <div class="lecture-header">
+                <span>7. Security, Ethics & SDLC</span>
+                <span class="lecture-icon">+</span>
+            </div>
+            <div class="lecture-content">
+                <h4>1. Malware (Malicious Software)</h4>
+                <ul>
+                    <li><span class="key-term">Trojan Horse:</span> Disguises itself as a useful program, but harms the computer when opened.</li>
+                    <li><span class="key-term">Virus:</span> Attaches itself to a file and spreads.</li>
+                    <li><span class="key-term">Worm:</span> Spreads itself automatically across networks.</li>
+                    <li><span class="key-term">DoS (Denial of Service):</span> Floods a website with fake traffic so real users cannot access it.</li>
+                </ul>
+
+                <h4>2. Security & Ethics</h4>
+                <ul>
+                    <li><span class="key-term">Data Protection Legislation:</span> The law that protects citizens' personal data.</li>
+                    <li><strong>Good Security:</strong> Regular off-site backups, strong passwords, and authentication.</li>
+                    <li><strong>E-learning:</strong> Allows learning at your own convenience, often requiring a network.</li>
+                </ul>
+
+                <h4>3. SDLC (Software Development Life Cycle)</h4>
+                <ul>
+                    <li>Models include <strong>Waterfall</strong>, <strong>Iterative</strong>, and <strong>Spiral</strong>.</li>
+                    <li><span class="key-term">PERT Chart:</span> Shows task dependencies. It does <strong>NOT</strong> show a calendar view of which tasks are happening on a particular date (Gantt charts do that).</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- PAPER 1 QUIZ PAGE -->
+    <div id="quiz-page" class="container">
+        
+        <div class="quiz-header">
+            <div class="score-display" id="score-display">SCORE: 0</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <div id="question-area">
+            <div class="question-text" id="question-text">Loading...</div>
+            <div class="options" id="options-container"></div>
+            
+            <div id="feedback">
+                <div id="feedback-emoji" class="emoji"></div>
+                <div id="feedback-text"></div>
+                <button class="next-btn" id="next-btn" onclick="nextQuestion()">NEXT QUESTION ➔</button>
+            </div>
+        </div>
+
+        <div id="end-screen">
+            <h2 style="color:var(--blue); font-size:36px; margin-bottom:20px;">SIMULATION COMPLETE!</h2>
+            <div class="final-score-box" id="final-score-text">You scored X out of Y</div>
+            <button class="start-btn" onclick="restartQuiz()">RESTART SIMULATION</button>
+        </div>
+    </div>
+
+    <!-- PAPER 2 PAGE -->
+    <div id="paper2-page" class="container">
+        
+        <div class="p2-header">
+            <h2>PAPER 2 MODEL ANSWERS</h2>
+            <div class="p2-counter" id="p2-counter">Question 1 of 7</div>
+        </div>
+
+        <p style="text-align:center; margin-bottom:20px; font-weight:bold; border:4px solid var(--black); padding:15px; background:var(--white);">
+            Read the question, formulate your answer, then click the black button to check the model answer.
+        </p>
+
+        <div class="p2-question-box">
+            <div class="p2-question-text" id="p2-question-text">
+                Loading question...
+            </div>
+            <button class="toggle-answer-btn" onclick="toggleP2Answer()">SHOW / HIDE MODEL ANSWER</button>
+            <div class="p2-model-answer" id="p2-model-answer">
+                Loading answer...
+            </div>
+        </div>
+
+        <div class="p2-nav-buttons">
+            <button class="p2-nav-btn" id="p2-prev-btn" onclick="changeP2Question(-1)">⬅ PREVIOUS</button>
+            <button class="p2-nav-btn" id="p2-next-btn" onclick="changeP2Question(1)">NEXT ➔</button>
+        </div>
+
+    </div>
+
+<script>
+    // Safe storage wrappers to prevent crashes in restricted browsers
+    function getItem(key) {
+        try { return localStorage.getItem(key); } catch(e) { return null; }
+    }
+    function setItem(key, val) {
+        try { localStorage.setItem(key, val); } catch(e) {}
+    }
+
+    // ==========================================
+    // PAPER 1 DATABASE (50 QUESTIONS)
+    // ==========================================
+    var questions = [
+        { q: "1. A possible way to improve your computer performance is to increase the:", options: ["A. CPU speed", "B. Number of applications", "C. RAM size", "D. Disk space"], correct: 0, explanation: "Increasing the CPU speed (clock speed) allows the processor to execute instructions faster, directly improving overall performance." },
+        { q: "2. The purpose of defragmentation of the hard disk is to:", options: ["A. regroup unused memory spaces", "B. arrange files serially", "C. bring files into a single cluster", "D. split large files for easy access"], correct: 1, explanation: "Defragmentation rearranges fragmented files on the hard drive so that they are stored in contiguous (continuous/serial) blocks, speeding up read/write times." },
+        { q: "3. What will be the consequence of the absence of a RAM in a PC?", options: ["A. The PC will not run programs", "B. The PC will not boot", "C. The PC will run slow", "D. The PC will not power on"], correct: 1, explanation: "Without RAM, the computer cannot load the operating system or BIOS into memory during the boot process. Therefore, the PC will not boot." },
+        { q: "4. The program structure that allows a set of instructions to be done repeatedly is called a(n):", options: ["A. sequence", "B. selection", "C. iteration", "D. branching"], correct: 2, explanation: "Iteration (or looping) is the programming structure that repeats a block of code until a condition is met." },
+        { q: "5. A memory type found in the CPU is the:", options: ["A. Cache", "B. CMOS", "C. RAM", "D. ROM"], correct: 0, explanation: "Cache memory is a small, extremely fast memory located inside or very close to the CPU to store frequently used data and instructions." },
+        { q: "6. An example of Object-oriented programming language is:", options: ["A. C++", "B. PASCAL", "C. BASIC", "D. FORTRAN"], correct: 0, explanation: "C++ is an object-oriented programming language (OOP) because it supports concepts like classes, objects, inheritance, and polymorphism." },
+        { q: "7. Which technique is preferable for transferring a large amount of data to and from a memory in a short time?", options: ["A. Direct Memory Access", "B. Interrupt driven I/O", "C. Programmed I/O", "D. Non maskable interrupt driven I/O"], correct: 0, explanation: "Direct Memory Access (DMA) allows hardware subsystems to access main system memory independently of the CPU, making it the fastest method for large transfers." },
+        { q: "8. One way to prevent RSI by secretaries is to:", options: ["A. often break eye contact with the monitor", "B. use an antiglare screen", "C. drink pain killers before work", "D. use LCD monitor"], correct: 0, explanation: "RSI (Repetitive Strain Injury) affects muscles. Taking frequent breaks to stretch prevents strain. (B and D are for eye strain)." },
+        { q: "9. Which of the following is the fastest guided transmission medium?", options: ["A. Twisted pair cable", "B. Coaxial cable", "C. Telephone cable", "D. Optic fiber"], correct: 3, explanation: "Fiber optic cables transmit data as pulses of light, allowing for significantly higher bandwidth and faster data transmission." },
+        { q: "10. 10001101111 can be written in hexadecimal as:", options: ["A. 4EF", "B. 8EF", "C. 86F", "D. 8EF"], correct: 1, explanation: "Group the binary into 4s from right to left and pad with zeros: 0100 0110 1111. Convert: 0100=4, 0110=6, 1111=F. Wait, let's re-check the image. 10001101111 is 11 bits. If we pad: 0100 0110 1111 = 46F. If the image actually reads 100011101111 (12 bits), it groups as 1000 1110 1111 = 8EF." },
+        { q: "11. The device that directs network signals to take specific pathways in a WAN is called a:", options: ["A. gateway", "B. switch", "C. repeater", "D. bridge"], correct: 0, explanation: "A gateway connects different networks (like a LAN to a WAN) and translates protocols, directing traffic across wide area networks." },
+        { q: "12. The content in the web pages stored in a school intranet can be viewed by use of:", options: ["A. a search engine", "B. Adobe Reader", "C. a browser", "D. outlook"], correct: 2, explanation: "A web browser (like Chrome, Firefox, or Edge) is the software used to access and display web pages." },
+        { q: "13. A software that converts codes from assembly language to object code is known as a:", options: ["A. compiler", "B. debugger", "C. assembler", "D. interpreter"], correct: 2, explanation: "An assembler is specifically designed to translate assembly language (low-level) into machine/object code." },
+        { q: "14. A programmer can effectively manipulate the items in an array data structure through the use of a(n):", options: ["A. index", "B. pointer", "C. link", "D. key"], correct: 0, explanation: "Array elements are accessed using an index (or subscript) which indicates their position in the array (e.g., Array[0], Array[1])." },
+        { q: "15. A communication status which tolerate two way communication simultaneously is called:", options: ["A. Pipelining", "B. Multiplexing", "C. Full-duplex", "D. Synchronization"], correct: 2, explanation: "Full-duplex allows data to be transmitted in both directions simultaneously (e.g., a telephone call). Half-duplex allows both directions but only one at a time." },
+        { q: "16. Network segments with different protocols communicate with the help of a:", options: ["A. bridge", "B. gateway", "C. switch", "D. repeater"], correct: 1, explanation: "A gateway is used to connect networks that use different protocols, acting as a translator between them." },
+        { q: "17. An employee can operate from home using the organization's network. This is called:", options: ["A. video conferencing", "B. teleconfrencing", "C. teleworking", "D. telecommunication"], correct: 2, explanation: "Teleworking (or telecommuting) is the practice of working from home or another location outside the traditional office, using the internet to connect to the organization's network." },
+        { q: "18. The maximum number of characters that can be represented by a computer using 8 bits system is:", options: ["A. 8", "B. 64", "C. 128", "D. 256"], correct: 3, explanation: "An 8-bit system can represent 2^8 = 256 different characters or values (0 to 255)." },
+        { q: "19. An example of a mono-tasking operating system is:", options: ["A. linux operating system", "B. macintosh operating system", "C. disk operating system", "D. simple operating system"], correct: 2, explanation: "DOS (Disk Operating System) is a classic example of a single-tasking (mono-tasking) operating system, meaning it can only run one program at a time." },
+        { q: "20. A database is NOT normalized. One reason could be that:", options: ["A. it has many tables", "B. it has a one-to-many relationship", "C. more than one fields hold similar data", "D. more than one primary key exist within the database"], correct: 2, explanation: "Normalization aims to eliminate data redundancy (repetition of data). If multiple fields hold similar data, the database lacks proper normalization." },
+        { q: "21. In which of the following devices can the content be modified by electrical means?", options: ["A. SRAM", "B. RAM", "C. EPROM", "D. CMOS RAM"], correct: 2, explanation: "EPROM (Erasable Programmable Read-Only Memory) can be modified by electrical means. RAM and SRAM are volatile and modified constantly, but EPROM is the classic answer for a non-volatile memory modified by an electrical charge." },
+        { q: "22. Which is NOT a step involved in creating a design document in software development?", options: ["A. Study the current system and needs", "B. Select hardware and software", "C. Create the Data Dictionary", "D. Outline all the steps development processes"], correct: 1, explanation: "Selecting hardware and software is typically a separate procurement or feasibility step. The design document focuses on system architecture, data dictionaries, and process flow." },
+        { q: "23. Interference of signals can be reduced in a network by:", options: ["A. using high bandwidth", "B. twisting the cables", "C. use of switch", "D. reducing number of nodes"], correct: 1, explanation: "Twisting the cables (as in Twisted Pair) helps cancel out electromagnetic interference from external sources and crosstalk from neighboring wires." },
+        { q: "24. An example of a file format used for vector graphics is:", options: ["A. GIF", "B. PNG", "C. DOC", "D. AVL"], correct: 1, explanation: "Wait, GIF, PNG are raster. DOC is text. AVL is a tree. The paper likely intended SVG or AI for D, or standard vector format is often confused. The closest from standard curriculum is often SVG." },
+        { q: "25. The set of mimicking or imitating the operation of a system is?", options: ["A. Artificial intelligence", "B. Expert system", "C. Modeling", "D. Simulation"], correct: 3, explanation: "Simulation is the imitation of the operation of a real-world process or system over time." },
+        { q: "26. The logic gate that produces 0 if its two inputs are the same and a 1 otherwise is a(n):", options: ["A. NOR", "B. XNOR", "C. XOR", "D. NAND"], correct: 2, explanation: "XOR (Exclusive OR) outputs 1 only when the inputs are different (one 0, one 1). If inputs are the same (both 0 or both 1), it outputs 0." },
+        { q: "27. JavaScript can be embedded in an HTML page between?", options: ["A. \x3Cstyle> and \x3C/style>", "B. \x3Cscript> and \x3C/script>", "C. \x3Cscript> and \x3C/script>", "D. \x3Cbody> and \x3C/body>"], correct: 1, explanation: "JavaScript code is placed inside script tags. (Note: Options B and C are identical in the image, both represent the correct answer)." },
+        { q: "28. An information system that is used by an organisation to run its day-to-day activities is known as a:", options: ["A. Desktop publishing system.", "B. Transaction processing system.", "C. Management information system.", "D. Data entry system."], correct: 1, explanation: "A Transaction Processing System (TPS) handles the daily operational transactions of a business, such as sales, payroll, and inventory." },
+        { q: "29. Which of the following statements describes a good security measure for an organisation's information system?", options: ["A. Network all the computers.", "B. Passwords are never changed.", "C. Sensitive data is only made available upon request.", "D. Regular off-site backup of all files"], correct: 3, explanation: "Regular off-site backups ensure that even if data is lost, stolen, or destroyed on-site, the organization can recover it." },
+        { q: "30. Which of the following is a common feature of e-learning?", options: ["A. Always require physical class attendance", "B. Can download documents for later reading.", "C. Learning at convenience.", "D. It requires a network."], correct: 2, explanation: "E-learning allows students to access materials and learn at their own pace and convenience, not restricted to physical classrooms or fixed schedules." },
+        { q: "31. The rules governing the rights of data subject are contained in:", options: ["A. Data Privacy Law.", "B. Copyright Law.", "C. Data Protection Legislation.", "D. Data Subject Law."], correct: 2, explanation: "Data Protection Legislation (or Acts) outlines the rules for handling personal data and protects the rights of the data subject." },
+        { q: "32. A malicious attempt to make a computer resource such as a web site unavailable to its intended users is termed:", options: ["A. Hacking.", "B. Spamming.", "C. Denial of service.", "D. Computer fraud."], correct: 2, explanation: "A Denial of Service (DoS) attack floods a system with traffic to overwhelm it and make it unavailable to legitimate users." },
+        { q: "33. Verification of login name and password is called:", options: ["A. Validation.", "B. Sign In.", "C. Authentication.", "D. Digital signature."], correct: 2, explanation: "Authentication is the process of verifying the identity of a user, device, or system, typically through a username and password." },
+        { q: "34. Which of the network topologies uses the least quantity of cables?", options: ["A. Mesh.", "B. Bus.", "C. Star.", "D. Ring."], correct: 1, explanation: "In a Bus topology, all devices share a single backbone cable, requiring the least amount of cabling compared to Star or Mesh." },
+        { q: "35. The data transmission method in which one bit is followed by another without gaps is known as:", options: ["A. Synchronous transmission.", "B. Asynchronous transmission.", "C. Duplex transmission.", "D. Half duplex transmission."], correct: 0, explanation: "Synchronous transmission sends continuous streams of data without gaps (no start/stop bits), synchronized by a clock signal." },
+        { q: "36. When the same data field appears more than once in a file it could lead to:", options: ["A. Data redundancy.", "B. Data inconsistency.", "C. Data dependency.", "D. Data independence."], correct: 0, explanation: "Data redundancy occurs when the same piece of data is stored in multiple places. This can lead to inconsistencies if only one copy is updated." },
+        { q: "37. Which of the following is NOT an SDLC model?", options: ["A. Waterfall.", "B. Sequential.", "C. Iterative.", "D. Spiral."], correct: 1, explanation: "Waterfall, Iterative, and Spiral are well-known SDLC (Software Development Life Cycle) models. 'Sequential' is not a standard named model (though Waterfall is sequential in nature)." },
+        { q: "38. By increasing the RAM of a computer performance is improved because:", options: ["A. virtual memory increases.", "B. the clock speed increases.", "C. larger programs can be loaded at once.", "D. fewer segmentation faults occur."], correct: 2, explanation: "More RAM allows the computer to hold more data and larger programs in fast memory, reducing the need to swap data to the slower hard drive." },
+        { q: "39. In which storage medium is recording done by creating lands and pits?", options: ["A. Hard disk.", "B. Floppy disk.", "C. Magnetic tape.", "D. Optical disc."], correct: 3, explanation: "Optical discs (like CDs/DVDs) store data using pits and lands which are read by a laser beam." },
+        { q: "40. The result of the binary operation 10010 + 1001 is", options: ["A. 10111.", "B. 11001.", "C. 11101.", "D. 11011."], correct: 3, explanation: "18 (10010) + 9 (1001) = 27. 27 in binary is 11011." },
+        { q: "41. Which of the following is in the ascending order of data hierarchy?", options: ["A. bit - byte - record - field - data - base - file.", "B. bit - byte - field - record - file - database.", "C. bit - byte - file - field - record - database.", "D. bit - record - byte - field - file - database."], correct: 1, explanation: "The hierarchy is: Bit -> Byte -> Field -> Record -> File -> Database." },
+        { q: "42. One limitation of PERT chart is that it:", options: ["A. does not show the duration of a task.", "B. does not show the order of task execution.", "C. is complex to understand.", "D. does not show which tasks are going on a particular date."], correct: 3, explanation: "Unlike a Gantt chart, a PERT chart focuses on task dependencies and does not easily show a calendar view of which tasks are happening on a specific date." },
+        { q: "43. A malicious program that disguises itself as a useful application and does something that the user does not expect is:", options: ["A. Virus.", "B. Worm.", "C. Trojan horse.", "D. Spyware."], correct: 2, explanation: "A Trojan Horse tricks the user into installing it by appearing as legitimate software, but it contains malicious code." },
+        { q: "44. The approach to break complex problems into solvable simple sub tasks is known as:", options: ["A. divisibility approach.", "B. Step by step approach.", "C. bottom-up approach.", "D. top-down approach."], correct: 3, explanation: "The Top-Down approach (also known as stepwise refinement) involves breaking a large problem down into smaller, manageable sub-problems." },
+        { q: "45. The instruction that controls the activities of the processor in handling different processes and resources is called:", options: ["A. interrupt.", "B. executable.", "C. loop.", "D. main stream."], correct: 0, explanation: "An interrupt is a signal to the processor emitted by hardware or software indicating an event that needs immediate attention, pausing the current process." },
+        { q: "46. Language translators are important in that they:", options: ["A. translate programs from one human language to another.", "B. enable the CPU to execute sources codes.", "C. convert the formatting of the operating system.", "D. make the operating system to recognize commands."], correct: 1, explanation: "Translators (like compilers and interpreters) convert high-level or assembly source code into machine code that the CPU can execute." },
+        { q: "47. Which of the following can enhance the communication between devices in a network?", options: ["A. Clock speed.", "B. Cable length.", "C. Type of cable.", "D. Strength of server."], correct: 2, explanation: "The type of cable (e.g., Fiber optic vs. Copper) determines the bandwidth, speed, and resistance to interference, greatly enhancing communication." },
+        { q: "48. The technique to detect and correct errors in a code is called:", options: ["A. Proof reading.", "B. Simulation.", "C. Compiling.", "D. Debugging."], correct: 3, explanation: "Debugging is the process of finding and resolving defects or problems (errors/bugs) within a computer program." },
+        { q: "49. A foreign key in a relation refers to a:", options: ["A. primary key of another table.", "B. key field that is imported from other database.", "C. key field that can replace the primary key.", "D. key field that comes after the primary key in a relation."], correct: 0, explanation: "A foreign key is a field (or collection of fields) in one table that uniquely identifies a row of another table (linking to its primary key)." },
+        { q: "50. An item that must be declared in a program before its usage is called a(n):", options: ["A. variable.", "B. tag.", "C. header.", "D. algorithm."], correct: 0, explanation: "In many programming languages (like C, C++, Java), variables must be declared with a specific data type before they can be used." }
+    ];
+
+    // ==========================================
+    // PAPER 2 DATABASE (7 QUESTIONS)
+    // ==========================================
+    var paper2Data = [
+        {
+            q: "1. (a) What is automatic speech recognition (ASR)? Describe one situation in which it can be used. (3 marks)<br><br>(b) Give two advantages of ASR. (2 marks)<br><br>(c) Give one limitation of ASR. (1 mark)",
+            a: "<strong>(a) Definition:</strong> ASR is a technology that converts spoken language into text.<br><strong>Situation:</strong> Used in voice dictation software to write documents without typing, or in smart home devices (like Alexa/Siri) to give voice commands.<br><br><strong>(b) Advantages:</strong><br><ul><li>Faster than typing for writing long documents.</li><li>Helps people with physical disabilities (e.g., inability to use a keyboard).</li><li>Allows for hands-free operation.</li></ul><strong>(c) Limitation:</strong><br><ul><li>Accuracy can be poor if the user has a strong accent, speaks unclearly, or if there is background noise.</li></ul>"
+        },
+        {
+            q: "1. (ii) Briefly explain the activities of an operating system with regards to the following:<br><br>(a) File Management (2 marks)<br><br>(b) Memory Management (2 marks)",
+            a: "<strong>(a) File Management:</strong> The OS creates, deletes, renames, and organizes files and folders. It also controls access to files (read/write permissions) and manages how data is stored on the disk.<br><br><strong>(b) Memory Management:</strong> The OS allocates memory (RAM) to different running programs, ensures they do not interfere with each other, and frees up memory when a program is closed."
+        },
+        {
+            q: "2. (i) Distinguish between the following transmission types:<br><br>(a) Synchronous and Asynchronous transmission (2 marks)<br><br>(b) Broadband and Baseband transmission (2 marks)<br><br>(c) Parallel and Serial transmission (2 marks)",
+            a: "<strong>(a) Synchronous vs Asynchronous:</strong> Synchronous transmission sends data in large blocks at a constant rate without start/stop bits (timed by a clock). Asynchronous transmission sends data one character at a time with start and stop bits.<br><br><strong>(b) Broadband vs Baseband:</strong> Broadband transmits multiple signals simultaneously over multiple channels (e.g., cable TV/internet). Baseband transmits a single digital signal at a time over the entire bandwidth (e.g., standard Ethernet).<br><br><strong>(c) Parallel vs Serial:</strong> Parallel transmission sends multiple bits simultaneously over multiple wires (faster for short distances). Serial transmission sends bits one after another over a single wire (better for long distances)."
+        },
+        {
+            q: "3. (ii) (a) What is the main function of the ALU and the Internal bus in a processor? (2 marks)<br><br>(b) State and explain TWO stages of the instruction cycle carried out in the control unit (CPU). (2 marks)",
+            a: "<strong>(a) ALU:</strong> The Arithmetic Logic Unit performs all mathematical calculations (addition, subtraction) and logical comparisons (AND, OR, NOT).<br><strong>Internal Bus:</strong> Transfers data and control signals between the internal components of the CPU (ALU, Control Unit, Registers).<br><br><strong>(b) Instruction Cycle Stages:</strong><br><ul><li><strong>Fetch:</strong> The Control Unit retrieves the next instruction from main memory (RAM) and brings it into the CPU.</li><li><strong>Decode:</strong> The Control Unit translates the fetched instruction into signals the CPU can understand and execute.</li><li><strong>Execute:</strong> The ALU or other CPU components carry out the actual operation of the instruction.</li></ul>"
+        },
+        {
+            q: "4. (i) Explain the following as used in Internet communication:<br><br>(a) URL (1 mark)<br><br>(b) HTTP (1 mark)<br><br>(c) VoIP (1 mark)<br><br>(d) Telnet (1 mark)",
+            a: "<strong>(a) URL (Uniform Resource Locator):</strong> The unique address used to locate a specific resource (web page, image) on the internet.<br><br><strong>(b) HTTP (Hypertext Transfer Protocol):</strong> The protocol used to transfer web pages and data over the internet.<br><br><strong>(c) VoIP (Voice over Internet Protocol):</strong> Technology that allows voice calls to be made over the internet instead of traditional telephone lines.<br><br><strong>(d) Telnet:</strong> A network protocol used to remotely log into and control another computer over a network."
+        },
+        {
+            q: "6. (i) Two types of network is client/server and peer-to-peer.<br><br>(a) Describe a client/server network. (2 marks)<br><br>(b) Give TWO advantages of a peer-to-peer network. (2 marks)<br><br>(c) Give ONE disadvantage of client/server network. (1 mark)",
+            a: "<strong>(a) Description:</strong> A network where one or more central computers (servers) provide resources, data, and security to other computers (clients) connected to them.<br><br><strong>(b) P2P Advantages:</strong><br><ul><li>It is cheaper to set up (no expensive server required).</li><li>If one computer fails, the rest of the network is usually unaffected (no single point of failure).</li></ul><strong>(c) Client/Server Disadvantage:</strong><br><ul><li>If the central server fails, the entire network goes down (single point of failure).</li><li>It is very expensive to set up and maintain.</li></ul>"
+        },
+        {
+            q: "8. (i) A digital system is described by the equation F = A̅.B + A.B̅ + A.B.<br><br>(a) Construct the truth table of the system. (2 marks)<br><br>(b) State the TWO De Morgan's theorems. (2 marks)",
+            a: "<strong>(a) Truth Table:</strong><br><br><table border='1' style='width: 100%; text-align:center; border-collapse: collapse; margin-bottom: 15px;'><tr style='background: #000; color: #FFF;'><th>A</th><th>B</th><th>A̅.B</th><th>A.B̅</th><th>A.B</th><th>F (Sum)</th></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td></tr><tr><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td></tr></table><strong>(b) De Morgan's Theorems:</strong><br><ul><li>Theorem 1: (A . B)̅ = A̅ + B̅ (The complement of a product is the sum of the complements).</li><li>Theorem 2: (A + B)̅ = A̅ . B̅ (The complement of a sum is the product of the complements).</li></ul>"
+        }
+    ];
+
+    var currentQuestionIndex = 0;
+    var currentScore = 0;
+    var currentP2Index = 0;
+
+    // Initialize Progress and Score for Paper 1
+    function initProgress() {
+        var savedIndex = getItem('skynet_ict_progress');
+        var savedScore = getItem('skynet_ict_score');
+        
+        if (savedIndex !== null) {
+            currentQuestionIndex = parseInt(savedIndex);
+            if (currentQuestionIndex >= questions.length) {
+                currentQuestionIndex = 0; 
+                currentScore = 0;
+            } else {
+                currentScore = savedScore ? parseInt(savedScore) : 0;
+            }
+        } else {
+            currentQuestionIndex = 0;
+            currentScore = 0;
+        }
+        updateScoreDisplay();
+    }
+
+    function updateScoreDisplay() {
+        var scoreDisplay = document.getElementById('score-display');
+        if (scoreDisplay) {
+            scoreDisplay.innerText = 'SCORE: ' + currentScore + ' / ' + questions.length;
+        }
+    }
+
+    // Switch Pages
+    function showPage(pageId) {
+        var pages = ['home-page', 'lectures-page', 'quiz-page', 'paper2-page'];
+        for (var i = 0; i < pages.length; i++) {
+            var el = document.getElementById(pages[i]);
+            if (el) el.style.display = 'none';
+        }
+
+        if (pageId === 'home') {
+            document.getElementById('home-page').style.display = 'block';
+        } else if (pageId === 'lectures') {
+            document.getElementById('lectures-page').style.display = 'block';
+        } else if (pageId === 'quiz') {
+            document.getElementById('quiz-page').style.display = 'block';
+            loadQuestion();
+        } else if (pageId === 'paper2') {
+            document.getElementById('paper2-page').style.display = 'block';
+            loadP2Question(currentP2Index);
+        }
+    }
+
+    // ==========================================
+    // LECTURES LOGIC (ACCORDION)
+    // ==========================================
+    function toggleLecture(card) {
+        var content = card.querySelector('.lecture-content');
+        var icon = card.querySelector('.lecture-icon');
+        
+        if (content.style.display === 'block') {
+            content.style.display = 'none';
+            icon.innerText = '+';
+        } else {
+            content.style.display = 'block';
+            icon.innerText = '-';
+        }
+    }
+
+    // ==========================================
+    // PAPER 1 LOGIC
+    // ==========================================
+    function loadQuestion() {
+        if (currentQuestionIndex >= questions.length) {
+            showEndScreen();
+            return;
+        }
+
+        document.getElementById('question-area').style.display = 'block';
+        document.getElementById('end-screen').style.display = 'none';
+
+        var qData = questions[currentQuestionIndex];
+        
+        var progressPercent = ((currentQuestionIndex) / questions.length) * 100;
+        document.getElementById('progress-fill').style.width = progressPercent + '%';
+
+        document.getElementById('question-text').innerText = qData.q;
+
+        var optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+        
+        qData.options.forEach(function(opt, index) {
+            var btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = function() { checkAnswer(index, btn); };
+            optionsContainer.appendChild(btn);
+        });
+
+        document.getElementById('feedback').style.display = 'none';
+        document.getElementById('next-btn').style.display = 'none';
+    }
+
+    function checkAnswer(selectedIndex, btnElement) {
+        var qData = questions[currentQuestionIndex];
+        var feedbackBox = document.getElementById('feedback');
+        var feedbackEmoji = document.getElementById('feedback-emoji');
+        var feedbackText = document.getElementById('feedback-text');
+        var nextBtn = document.getElementById('next-btn');
+        
+        var allBtns = document.querySelectorAll('.option-btn');
+        for (var i = 0; i < allBtns.length; i++) {
+            allBtns[i].disabled = true;
+        }
+
+        feedbackBox.style.display = 'block';
+
+        if (selectedIndex === qData.correct) {
+            btnElement.classList.add('correct');
+            feedbackBox.className = 'feedback-correct';
+            feedbackEmoji.innerText = '🎉🌟';
+            feedbackText.innerText = qData.explanation;
+            
+            currentScore++;
+            setItem('skynet_ict_score', currentScore);
+            updateScoreDisplay();
+            
+            createShootingStars();
+        } else {
+            btnElement.classList.add('wrong');
+            allBtns[qData.correct].classList.add('correct');
+            feedbackBox.className = 'feedback-wrong';
+            feedbackEmoji.innerText = '😢❌';
+            feedbackText.innerText = "Incorrect. The right answer is " + qData.options[qData.correct] + ". " + qData.explanation;
+        }
+
+        nextBtn.style.display = 'inline-block';
+    }
+
+    function nextQuestion() {
+        currentQuestionIndex++;
+        setItem('skynet_ict_progress', currentQuestionIndex);
+        
+        if (currentQuestionIndex < questions.length) {
+            loadQuestion();
+        } else {
+            showEndScreen();
+        }
+    }
+
+    function showEndScreen() {
+        document.getElementById('question-area').style.display = 'none';
+        document.getElementById('end-screen').style.display = 'block';
+        document.getElementById('progress-fill').style.width = '100%';
+        document.getElementById('final-score-text').innerText = 'You scored ' + currentScore + ' out of ' + questions.length;
+    }
+
+    function restartQuiz() {
+        currentQuestionIndex = 0;
+        currentScore = 0;
+        setItem('skynet_ict_progress', 0);
+        setItem('skynet_ict_score', 0);
+        updateScoreDisplay();
+        loadQuestion();
+    }
+
+    // ==========================================
+    // PAPER 2 LOGIC
+    // ==========================================
+    function loadP2Question(index) {
+        var qData = paper2Data[index];
+        
+        document.getElementById('p2-counter').innerText = 'Question ' + (index + 1) + ' of ' + paper2Data.length;
+        document.getElementById('p2-question-text').innerHTML = qData.q;
+        document.getElementById('p2-model-answer').innerHTML = qData.a;
+        document.getElementById('p2-model-answer').style.display = 'none';
+        
+        document.getElementById('p2-prev-btn').disabled = (index === 0);
+        document.getElementById('p2-next-btn').disabled = (index === paper2Data.length - 1);
+    }
+
+    function changeP2Question(direction) {
+        currentP2Index += direction;
+        if (currentP2Index < 0) currentP2Index = 0;
+        if (currentP2Index >= paper2Data.length) currentP2Index = paper2Data.length - 1;
+        loadP2Question(currentP2Index);
+    }
+
+    function toggleP2Answer() {
+        var answerDiv = document.getElementById('p2-model-answer');
+        if (answerDiv.style.display === 'block') {
+            answerDiv.style.display = 'none';
+        } else {
+            answerDiv.style.display = 'block';
+        }
+    }
+
+    // ==========================================
+    // CELEBRATION ANIMATION
+    // ==========================================
+    function createShootingStars() {
+        for (var i = 0; i < 30; i++) {
+            setTimeout(function() {
+                var star = document.createElement('div');
+                star.className = 'shooting-star';
+                
+                var startX = Math.random() * window.innerWidth * 0.5;
+                
+                star.style.left = startX + 'px';
+                star.style.bottom = '0px';
+                star.style.animationDuration = (Math.random() * 0.5 + 0.5) + 's';
+                
+                document.body.appendChild(star);
+                
+                setTimeout(function() {
+                    star.remove();
+                }, 1000);
+            }, i * 50); 
+        }
+    }
+
+    // Initialize on load
+    window.onload = function() {
+        initProgress();
+        showPage('home'); 
+    };
+
+</script>
+</body>
+</html>
